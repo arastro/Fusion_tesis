@@ -46,7 +46,7 @@ public class Adaptador_Sitios extends ArrayAdapter<Sitio> {
 
         ImageView imagen = (ImageView) listItemView.findViewById(R.id.miniatura_sitio);
 
-        imagen.setImageResource(sitioActual.getImg());
+        imagen.setImageBitmap(sitioActual.getImg());
 
         return listItemView;
     }

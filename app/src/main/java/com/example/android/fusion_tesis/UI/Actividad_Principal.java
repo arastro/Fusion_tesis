@@ -40,6 +40,11 @@ public class Actividad_Principal extends AppCompatActivity
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment,fragnent);
+        Intent intent = getIntent();
+        id = intent.getIntExtra("id", 0);
+        Bundle args = new Bundle();
+        args.putInt("id", id);
+        fragnent.setArguments(args);
         fragmentTransaction.commit();
     }
 

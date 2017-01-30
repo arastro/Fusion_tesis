@@ -63,7 +63,9 @@ public class Actividad_Login extends AppCompatActivity {
 
     public void goToMenuPrincipal(View view) {
         Intent intent =new Intent(this, Actividad_Principal.class);
+        intent.putExtra("id",10);
         startActivity(intent);
+
 
         //new AsyncMenuPrincipal().execute();
 
