@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.fusion_tesis.Modelo.DescargasYCargas;
 import com.example.android.fusion_tesis.Modelo.JSONParser;
@@ -32,6 +34,7 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
     private ImageView imagenArriba;
     private int id_sitio;
     private int id_user;
+    RatingBar ratingBar;
 
     public static final String URL="http://ceramicapiga.com/tesis/get_site_info.php";
 
@@ -43,12 +46,21 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
         Intent intent = getIntent();
         id_sitio = intent.getIntExtra("id_sitio", 0);
         id_user = intent.getIntExtra("id_user", 0);
-
+        ratingBar = (RatingBar) findViewById(R.id.rating);
         GetFromUrl tsk = new GetFromUrl();
         tsk.execute();
 
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                Toast.makeText(getApplication(), "Loquesea", Toast.LENGTH_SHORT).show();
+                ratingBar.setRating(rating);
+
+            }
+        });
 
     }
+
 
     private class GetFromUrl extends AsyncTask<Void, Void, Void> {
 
