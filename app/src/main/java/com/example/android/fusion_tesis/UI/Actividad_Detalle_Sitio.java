@@ -36,7 +36,7 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
     private int id_user;
     RatingBar ratingBar;
 
-    public static final String URL="http://ceramicapiga.com/tesis/get_site_info.php";
+    public static final String URL="http://ceramicapiga.com/tesis/makeRating.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +47,45 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
         id_sitio = intent.getIntExtra("id_sitio", 0);
         id_user = intent.getIntExtra("id_user", 0);
         ratingBar = (RatingBar) findViewById(R.id.rating);
+
         GetFromUrl tsk = new GetFromUrl();
         tsk.execute();
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Toast.makeText(getApplication(), "Loquesea", Toast.LENGTH_SHORT).show();
-                ratingBar.setRating(rating);
+
+
+                JSONObject json = new JSONObject();
+                JSONParser jsonParser = new JSONParser();
+                int num=ratingBar.getNumStars();
+
+                try {
+
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("id_user", Integer.toString(id_user));
+                    params.put("id_place", Integer.toString(id_sitio));
+                    params.put("rating", Integer.toString(num));
+
+                    Log.d("request", "starting");
+
+                    json = jsonParser.makeHttpRequest(URL, "POST", params);
+
+                    int success =json.getInt("success");
+
+                    if(success==1){
+                        Toast.makeText(getApplication(), Integer.toString(num), Toast.LENGTH_SHORT).show();
+                        ratingBar.setRating(rating);
+
+                    }else{
+                        Toast.makeText(getApplication(), "Error, algo raro ocurrio", Toast.LENGTH_SHORT).show();
+                        ratingBar.setRating(rating);
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+
+                }
 
             }
         });
