@@ -70,7 +70,7 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
 
                     Log.d("request", "starting");
 
-                    json = jsonParser.makeHttpRequest(URL, "POST", params);
+                    json = jsonParser.makeHttpRequest(URLRECOMENDACION, "POST", params);
 
                     int success =json.getInt("success");
 
