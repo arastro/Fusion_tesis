@@ -36,7 +36,8 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
     private int id_user;
     RatingBar ratingBar;
 
-    public static final String URL="http://ceramicapiga.com/tesis/makeRating.php";
+    public static final String URL="http://ceramicapiga.com/tesis/get_site_info.php";
+    public static final String URLRECOMENDACION = "http://ceramicapiga.com/tesis/makeRating.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +135,8 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
             }
             return  null;
         }
+
+        @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
