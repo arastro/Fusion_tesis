@@ -31,7 +31,7 @@ public class Fragmento_principal extends Fragment {
 
     public static final String URL="http://ceramicapiga.com/tesis/get5sites.php";
     private ArrayList<Sitio> sitios = new ArrayList<Sitio>();
-    private ArrayList<Integer> idSitios = new ArrayList<>();
+    private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
     int id;
     private View view;
 
@@ -107,7 +107,6 @@ public class Fragmento_principal extends Fragment {
                     imagen = DescargasYCargas.descargarImagen(sitioJson.getString("url"));
                     sitios.add(new Sitio(id, name,"","", imagen));
                     idSitios.add(id);
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

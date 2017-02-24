@@ -34,7 +34,9 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
     private ImageView imagenArriba;
     private int id_sitio;
     private int id_user;
-    RatingBar ratingBar;
+    private RatingBar ratingBar;
+    private int rate; // va a tener la puntucion realizada por el usuario;
+
 
     public static final String URL="http://ceramicapiga.com/tesis/get_site_info.php";
     public static final String URLRECOMENDACION = "http://ceramicapiga.com/tesis/makeRating.php";
@@ -55,44 +57,62 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                rate = (int) rating;
+                MakeRecomendation tarea = new MakeRecomendation();
+                tarea.execute();
 
-
-                JSONObject json = new JSONObject();
-                JSONParser jsonParser = new JSONParser();
-                int num=ratingBar.getNumStars();
-
-                try {
-
-                    HashMap<String, String> params = new HashMap<>();
-                    params.put("id_user", Integer.toString(id_user));
-                    params.put("id_place", Integer.toString(id_sitio));
-                    params.put("rating", Integer.toString(num));
-
-                    Log.d("request", "starting");
-
-                    json = jsonParser.makeHttpRequest(URLRECOMENDACION, "POST", params);
-
-                    int success =json.getInt("success");
-
-                    if(success==1){
-                        Toast.makeText(getApplication(), Integer.toString(num), Toast.LENGTH_SHORT).show();
-                        ratingBar.setRating(rating);
-
-                    }else{
-                        Toast.makeText(getApplication(), "Error, algo raro ocurrio", Toast.LENGTH_SHORT).show();
-                        ratingBar.setRating(rating);
-                    }
-
-                }catch (Exception e){
-                    e.printStackTrace();
-
-                }
 
             }
         });
 
     }
 
+
+    private class MakeRecomendation extends  AsyncTask<Void, Void,Integer>{
+
+        int success;
+        @Override
+        protected Integer doInBackground(Void... param) {
+            JSONObject json = new JSONObject();
+            JSONParser jsonParser = new JSONParser();
+
+
+            try {
+
+                HashMap<String, String> params = new HashMap<>();
+                params.put("id_user", Integer.toString(id_user));
+                params.put("id_place", Integer.toString(id_sitio));
+                params.put("rating", Integer.toString(rate));
+
+                Log.d("request", "starting");
+
+                json = jsonParser.makeHttpRequest(URLRECOMENDACION, "POST", params);
+
+                success =json.getInt("success");
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+
+            }
+            return success;
+        }
+
+        @Override
+        protected void onPostExecute(Integer success) {
+            super.onPostExecute(success);
+
+            if(success==1){
+                Toast.makeText(getApplication(), "Puntuacion Exitosa", Toast.LENGTH_SHORT).show();
+                ratingBar.setRating(rate);
+
+            }else{
+                Toast.makeText(getApplication(), "Error, algo raro ocurrio", Toast.LENGTH_SHORT).show();
+                ratingBar.setRating(rate);
+            }
+
+        }
+    }
 
     private class GetFromUrl extends AsyncTask<Void, Void, Void> {
 
