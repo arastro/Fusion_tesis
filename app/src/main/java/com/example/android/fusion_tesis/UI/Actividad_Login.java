@@ -38,13 +38,6 @@ public class Actividad_Login extends AppCompatActivity {
     }
 
 
-    protected boolean isEmpty(EditText user, EditText password){
-
-        return(user.getText().toString().equals("") && password.getText().toString().equals(""));
-
-
-    }
-
     public void onGotoRegisterActivity(View view) {
 
         // we change to RegisterActivity
@@ -53,15 +46,10 @@ public class Actividad_Login extends AppCompatActivity {
 
     }
 
-    public void menuPrincipal(View view) {
-
-        // we change to RegisterActivity
-        Intent intent =new Intent(this, Actividad_Principal.class);
-        startActivity(intent);
-
-    }
 
     public void goToMenuPrincipal(View view) {
+
+        // llama a la actividad principal de la app
         Intent intent =new Intent(this, Actividad_Principal.class);
         intent.putExtra("id",10);
         startActivity(intent);
@@ -75,11 +63,12 @@ public class Actividad_Login extends AppCompatActivity {
 
     class AsyncMenuPrincipal extends AsyncTask<Void, Void, Void> {
 
+        // Comprueba que el usurio.
+
         private ProgressDialog pDialog;
-        JSONObject json = new JSONObject();
-        JSONParser jsonParser = new JSONParser();
-        private static final String TAG_SUCCESS = "success";
-        private static final String TAG_MESSAGE = "message";
+        JSONObject json = new JSONObject(); // Contendra la respuesta del servidor en json
+        JSONParser jsonParser = new JSONParser(); // hara la peticion de servicio con el php
+        private static final String TAG_SUCCESS = "success"; // mensaje de exito
 
 
         EditText userEditText = (EditText)findViewById(R.id.userEditText);
@@ -101,12 +90,12 @@ public class Actividad_Login extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
 
             try {
-                HashMap<String, String> params = new HashMap<>();
-                params.put("user", user);
+                HashMap<String, String> params = new HashMap<>(); // contendra todas las variables que seran mandaras al servidor
+                params.put("user", user); //
 
                 Log.d("request", "starting");
 
-                json = jsonParser.makeHttpRequest(LOGIN_URL, "POST", params);
+                json = jsonParser.makeHttpRequest(LOGIN_URL, "POST", params); // ejecuta una peticion y recibe la respuesta en Json
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -120,26 +109,35 @@ public class Actividad_Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
-            }
 
 
             try {
-                String salt = json.getString("salt");
-                String largepassword = json.getString("password");
-                String rareString = Textgenerator.get_SHA_512_SecurePassword(password, salt);
-                int id = json.getInt("id");
+                if(json.getInt(TAG_SUCCESS)==1) {  // Verifica que la respuesta sea correcta
+                    String salt = json.getString("salt"); // almacena la salt del servidor
+                    String largepassword = json.getString("password"); // almacena la password mandada del seervidor
+                    String rareString = Textgenerator.get_SHA_512_SecurePassword(password, salt);
+                    int id = json.getInt("id"); // almacena la id del usuario que intenta hacer login
 
-                if(rareString.equals(largepassword)) {
-                    Toast.makeText(getApplication(),"Bienvenido", Toast.LENGTH_LONG).show();
-                    Intent intent =new Intent(getApplicationContext(), Actividad_Principal.class);
-                    intent.putExtra("id", id);
-                    startActivity(intent);
-                    finish();
 
+                    if (rareString.equals(largepassword)) {
+                        /*
+                        Si las contraseñas son iguales abre el la actividad_Principal de la app
+                         */
+                        Toast.makeText(getApplication(), "Bienvenido", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), Actividad_Principal.class);
+                        intent.putExtra("id", id); // manda la id del usuario al siguiente intent
+                        startActivity(intent);
+                        finish(); // destruye esta actividad para que no se pueda volver una vez hecho loguin
+
+                    } else {
+
+                        // en caso de no ser iguales manda este mensaje y no sigue
+                        Toast.makeText(getApplication(), "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
+                    }
                 }else{
-                    Toast.makeText(getApplication(),"Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
+                    // en caso de respuesta erronea por parte del servidor
+                    Toast.makeText(getApplication(), "Ups, algo fallo !intentalo de nuevo!", Toast.LENGTH_LONG).show();
                 }
 
             } catch (JSONException e) {

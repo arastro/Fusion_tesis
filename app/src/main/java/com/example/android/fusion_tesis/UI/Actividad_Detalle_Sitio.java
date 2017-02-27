@@ -84,7 +84,7 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
                 params.put("id_place", Integer.toString(id_sitio));
                 params.put("rating", Integer.toString(rate));
 
-                Log.d("request", "starting");
+               Log.d("request", "starting");
 
                 json = jsonParser.makeHttpRequest(URLRECOMENDACION, "POST", params);
 

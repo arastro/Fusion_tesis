@@ -10,6 +10,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <!-- Elije uno de los 2 temas de arriba paara la app ivan -->
+
+
+
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -45,10 +45,11 @@ public class Actividad_Registro extends Activity {
 
     }
 
-    public void goToMenuPrincipal(View view) {
 
 
+    public void onLogin(View view) {
 
+        // Here is the code to execute when te user pick in the button login
     }
 
     class PostAsync extends AsyncTask<Void, Void, Void> {
