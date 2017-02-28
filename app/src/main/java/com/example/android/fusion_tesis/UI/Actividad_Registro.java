@@ -41,7 +41,7 @@ public class Actividad_Registro extends Activity {
     }
 
     public void onRegistrar(View view) {
-        new PostAsync().execute();
+
 
     }
 
@@ -50,6 +50,7 @@ public class Actividad_Registro extends Activity {
     public void onLogin(View view) {
 
         // Here is the code to execute when te user pick in the button login
+        new PostAsync().execute();
     }
 
     class PostAsync extends AsyncTask<Void, Void, Void> {
@@ -61,13 +62,18 @@ public class Actividad_Registro extends Activity {
         private static final String TAG_MESSAGE = "message";
 
         EditText userEditText = (EditText) findViewById(R.id.userEditText);
+
         EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
+        EditText passwordEditText2 = (EditText)findViewById(R.id.passwordEditText2);
+
         EditText EmailEditText = (EditText)findViewById(R.id.emailEdit);
+        EditText EmailEditText2 = (EditText)findViewById(R.id.emailEdit2);
 
         String user = userEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        String password2 = passwordEditText2.getText().toString();
         String email = EmailEditText.getText().toString();
-
+        String email2= EmailEditText2.getText().toString();
         String salt = "";
         String largePassword = "";
 
@@ -84,41 +90,61 @@ public class Actividad_Registro extends Activity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            salt = Textgenerator.generateSalt();
-            largePassword = Textgenerator.get_SHA_512_SecurePassword(password, salt);
 
-            try {
-                HashMap<String, String> params = new HashMap<>();
-                params.put("user", user);
-                params.put("email", email);
-                params.put("salt", salt);
-                params.put("largepassword", largePassword);
+            if ((password.equals(password2) && email.equals(email2)) && !user.isEmpty()) {
 
-                Log.d("request", "starting");
+                salt = Textgenerator.generateSalt(); // genera un String al azar
+                largePassword = Textgenerator.get_SHA_512_SecurePassword(password, salt); // se genera una contraseña encriptada
 
-                json = jsonParser.makeHttpRequest(LOGIN_URL, "POST", params);
+                try {
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("user", user);
+                    params.put("email", email);
+                    params.put("salt", salt);
+                    params.put("largepassword", largePassword);
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                    Log.d("request", "starting");
+
+                    json = jsonParser.makeHttpRequest(LOGIN_URL, "POST", params);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            }else{
+                // contraseña o email vacios o que no encajen. usuario Vacio
+                cancel(true);
             }
 
             return null;
+            }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            pDialog.dismiss();
+            Toast.makeText(getApplication(), "Contraseña o Email diferentes", Toast.LENGTH_LONG).show();
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Void a) {
 
-            if (pDialog != null && pDialog.isShowing()) {
-                pDialog.dismiss();
-            }
+            pDialog.dismiss();
 
-            if (json != null) {
-                Toast.makeText(getApplication(), "Registro Incompleto", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplication(), "Registro Completo", Toast.LENGTH_LONG).show();
+                try {
+                    if (json.getInt("success") != 0) {
+                        Toast.makeText(getApplication(), json.getString("message"), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplication(), json.getString("message"), Toast.LENGTH_LONG).show();
 
-            }
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplication(), "Algo Salio mal", Toast.LENGTH_LONG).show();
+                }
         }
 
     }
+
+
 }
