@@ -19,7 +19,7 @@ import com.example.android.fusion_tesis.R;
 public class Actividad_Principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    int id;
+    int userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,9 @@ public class Actividad_Principal extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment,fragnent);
         Intent intent = getIntent();
-        id = intent.getIntExtra("id", 0);
+        userid = intent.getIntExtra("userid", 0);
         Bundle args = new Bundle();
-        args.putInt("id", id);
+        args.putInt("userid", userid);
         fragnent.setArguments(args);
         fragmentTransaction.commit();
     }

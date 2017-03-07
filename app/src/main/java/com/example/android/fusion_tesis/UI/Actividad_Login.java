@@ -2,8 +2,10 @@ package com.example.android.fusion_tesis.UI;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import static android.R.attr.value;
+
 /**
  * Created by IVANF on 29/01/2017.
  */
@@ -29,12 +33,26 @@ public class Actividad_Login extends AppCompatActivity {
     //String de url de la pagina
     private static final String LOGIN_URL="http://ceramicapiga.com/tesis/login.php";
 
-
+    int userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_login);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Login.this);
+
+        userid= prefs.getInt("userid", 0);
+
+        // se va a comprobar si el usuario ya se ha hecho log anteriormente
+        if(userid>0){
+
+            Intent intent = new Intent(getApplicationContext(), Actividad_Principal.class);
+            intent.putExtra("userid", userid); // manda la userid del usuario al siguiente intent
+
+            startActivity(intent);
+            finish();
+        }
     }
 
 
@@ -51,7 +69,12 @@ public class Actividad_Login extends AppCompatActivity {
 
         // llama a la actividad principal de la app
         Intent intent =new Intent(this, Actividad_Principal.class);
-        intent.putExtra("id",10);
+        intent.putExtra("userid",10);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Login.this); // guarda usuario
+
+        prefs.edit().putInt("userid",10).commit();
+
         startActivity(intent);
 
 
@@ -117,7 +140,7 @@ public class Actividad_Login extends AppCompatActivity {
                     String salt = json.getString("salt"); // almacena la salt del servidor
                     String largepassword = json.getString("password"); // almacena la password mandada del seervidor
                     String rareString = Textgenerator.get_SHA_512_SecurePassword(password, salt);
-                    int id = json.getInt("id"); // almacena la id del usuario que intenta hacer login
+                    userid = json.getInt("userid"); // almacena la userid del usuario que intenta hacer login
 
 
                     if (rareString.equals(largepassword)) {
@@ -126,7 +149,12 @@ public class Actividad_Login extends AppCompatActivity {
                          */
                         Toast.makeText(getApplication(), "Bienvenido", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), Actividad_Principal.class);
-                        intent.putExtra("id", id); // manda la id del usuario al siguiente intent
+                        intent.putExtra("userid", userid); // manda la userid del usuario al siguiente intent
+
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Login.this); // guarda usuario
+
+                        prefs.edit().putInt("userid",userid).commit();
+
                         startActivity(intent);
                         finish(); // destruye esta actividad para que no se pueda volver una vez hecho loguin
 

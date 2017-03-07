@@ -32,7 +32,7 @@ public class Fragmento_principal extends Fragment {
     public static final String URL="http://ceramicapiga.com/tesis/get5sites.php";
     private ArrayList<Sitio> sitios = new ArrayList<Sitio>();
     private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
-    int id;
+    int userid;
     private View view;
 
 
@@ -48,14 +48,14 @@ public class Fragmento_principal extends Fragment {
         // Inflate the layout for this fragment
         view =inflater.inflate(R.layout.fragmento_principal, container, false);
         Bundle args = getArguments();
-        id = args.getInt("id", 0);
+        userid = args.getInt("userid", 0); // contiene el id del usuario
 
         GetFromUrl tsk = new GetFromUrl();
         tsk.execute();
 
 
        /* Adaptador_Sitios adapter = new Adaptador_Sitios(getActivity(), sitios);
-        ListView lista = (ListView)view.findViewById(R.id.reciclador);
+        ListView lista = (ListView)view.findViewById(R.userid.reciclador);
         lista.setAdapter(adapter); */
 
        /* lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -92,7 +92,7 @@ public class Fragmento_principal extends Fragment {
         protected Void doInBackground(Void... voids) {
             Bitmap imagen=null;
             HashMap<String, String> params = new HashMap<>();
-            params.put("user", Integer.toString(id));
+            params.put("user", Integer.toString(userid));
 
             Log.i("Tag", "llego Aqui");
 
@@ -129,7 +129,7 @@ public class Fragmento_principal extends Fragment {
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Intent intent =new Intent(getContext(), Actividad_Detalle_Sitio.class);
                     intent.putExtra("id_sitio",idSitios.get(position));
-                    intent.putExtra("id_user",id);
+                    intent.putExtra("id_user", userid);
                     startActivity(intent);
                 }
             });
