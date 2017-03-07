@@ -79,7 +79,8 @@ public class Actividad_Login extends AppCompatActivity {
 
 
         //new AsyncMenuPrincipal().execute();
-
+      /*  prefs = PreferenceManager.getDefaultSharedPreferences(MyAccountActivity.this);
+        prefs.edit().clear().commit(); */
 
     }
 
