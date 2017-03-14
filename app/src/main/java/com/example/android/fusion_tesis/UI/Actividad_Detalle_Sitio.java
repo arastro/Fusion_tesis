@@ -166,7 +166,7 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
             TextView municipio = (TextView)findViewById(R.id.municipio_detalle);
             municipio.setText(sitio.getMunicipio());
 
-            TextView departamento = (TextView)findViewById(R.id.descripcion_detalle);
+            TextView departamento = (TextView)findViewById(R.id.departamento_detalle);
             departamento.setText(sitio.getDepartamento());
 
             ImageView imagen = (ImageView)findViewById(R.id.image_toolbars);

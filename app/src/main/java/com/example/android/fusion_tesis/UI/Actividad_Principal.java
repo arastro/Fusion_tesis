@@ -1,7 +1,9 @@
 package com.example.android.fusion_tesis.UI;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -113,6 +115,10 @@ public class Actividad_Principal extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Principal.this);
+            prefs.edit().clear().commit();
+
 
         }
 
