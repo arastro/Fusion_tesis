@@ -21,6 +21,7 @@
 
         <activity android:name=".UI.Actividad_Principal"></activity>
         <activity android:name=".UI.Actividad_Registro"></activity>
+        <activity android:name=".UI.Actividad_Cambio_Clave"></activity>
         <activity android:name=".UI.Actividad_Detalle_Sitio"
             android:parentActivityName=".UI.Actividad_Principal">
 

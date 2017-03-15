@@ -43,9 +43,9 @@ public class Actividad_Principal extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment,fragnent);
         Intent intent = getIntent();
-        userid = intent.getIntExtra("userid", 0);
+        //userid = intent.getIntExtra("userid", 0);
         Bundle args = new Bundle();
-        args.putInt("userid", userid);
+        //args.putInt("userid", userid);
         fragnent.setArguments(args);
         fragmentTransaction.commit();
     }
@@ -114,11 +114,16 @@ public class Actividad_Principal extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_password) {
 
+            Intent intent = new Intent(getApplicationContext(),Actividad_Cambio_Clave.class);
+            startActivity(intent);
+
+        }else if( id == R.id.nav_logout){
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Principal.this);
             prefs.edit().clear().commit();
-
+            Intent intent = new Intent(getApplicationContext(), Actividad_Login.class);
+            startActivity(intent);
 
         }
 

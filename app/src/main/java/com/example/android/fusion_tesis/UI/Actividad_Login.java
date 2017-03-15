@@ -154,7 +154,8 @@ public class Actividad_Login extends AppCompatActivity {
 
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Login.this); // guarda usuario
 
-                        prefs.edit().putInt("userid",userid).commit();
+                        prefs.edit().putInt("userid",userid).commit(); // alamacena el user id
+                        prefs.edit().putString("salt",salt).commit(); // almacena la salt del user;
 
                         startActivity(intent);
                         finish(); // destruye esta actividad para que no se pueda volver una vez hecho loguin

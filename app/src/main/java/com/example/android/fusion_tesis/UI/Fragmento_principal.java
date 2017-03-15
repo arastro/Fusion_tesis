@@ -3,9 +3,11 @@ package com.example.android.fusion_tesis.UI;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,7 +50,10 @@ public class Fragmento_principal extends Fragment {
         // Inflate the layout for this fragment
         view =inflater.inflate(R.layout.fragmento_principal, container, false);
         Bundle args = getArguments();
-        userid = args.getInt("userid", 0); // contiene el id del usuario
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext()); // Contiene al usuario
+
+        userid= prefs.getInt("userid", 0);  // contiene el id del usuario
+       // userid = args.getInt("userid", 0) ;
 
         GetFromUrl tsk = new GetFromUrl();
         tsk.execute();

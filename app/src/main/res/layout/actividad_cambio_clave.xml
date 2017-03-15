@@ -16,7 +16,9 @@
             android:src="@drawable/fondo2"
             android:scaleType="centerCrop"/>
 
-
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,17 +37,17 @@
 
             <EditText
                 style="@style/editText_Style"
-                android:id="@+id/userEditText"
+                android:id="@+id/oldPasswordEditText"
                 android:drawableLeft="@drawable/ic_usuario"
-                android:hint="@string/user"
-                android:inputType="text"/>
+                android:hint="@string/password"
+                android:inputType="textPassword"/>
 
             <EditText
                 style="@style/editText_Style"
                 android:id="@+id/passwordEditText"
                 android:layout_marginTop="16dp"
                 android:drawableLeft="@drawable/ic_password"
-                android:hint="@string/password"
+                android:hint="@string/new_password"
                 android:inputType="textPassword"/>
 
             <EditText
@@ -53,37 +55,22 @@
                 android:id="@+id/passwordEditText2"
                 android:layout_marginTop="16dp"
                 android:drawableLeft="@drawable/ic_password"
-                android:hint="@string/confirm_password"
+                android:hint="@string/confirm_new_password"
                 android:inputType="textPassword"/>
-
-            <EditText
-                style="@style/editText_Style"
-                android:id="@+id/emailEdit"
-                android:layout_marginTop="16dp"
-                android:drawableLeft="@drawable/ic_mail"
-                android:hint="@string/email"
-                android:inputType="text"/>
-
-            <EditText
-                style="@style/editText_Style"
-                android:id="@+id/emailEdit2"
-                android:layout_marginTop="16dp"
-                android:drawableLeft="@drawable/ic_mail"
-                android:hint="@string/Confirmar_email"
-                android:inputType="text" />
 
             <Button
                 style="@style/button_Style"
                 android:layout_marginTop="16dp"
-                android:onClick="onLogin"
                 android:layout_gravity="center"
-                android:text="@string/login"
+                android:text="@string/confirm"
+                android:onClick="changepassword"
                 android:layout_alignParentBottom="true"
                 android:layout_width="335dp"
                 android:layout_height="wrap_content" />
 
 
         </LinearLayout>
+    </ScrollView>
 
 
 
