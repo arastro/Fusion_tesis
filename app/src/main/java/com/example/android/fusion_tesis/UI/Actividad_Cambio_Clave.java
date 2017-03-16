@@ -66,6 +66,7 @@ public class Actividad_Cambio_Clave extends AppCompatActivity{
 
         if(password.equals(password2) && !password.equals("")){
 
+            new changePasswordTask().execute();
 
 
 
