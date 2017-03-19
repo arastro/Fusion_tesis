@@ -67,7 +67,7 @@ public class Actividad_Login extends AppCompatActivity {
 
     public void goToMenuPrincipal(View view) {
 
-     /*   // llama a la actividad principal de la app
+        // llama a la actividad principal de la app
         Intent intent =new Intent(this, Actividad_Principal.class);
         intent.putExtra("userid",10);
 
@@ -75,10 +75,10 @@ public class Actividad_Login extends AppCompatActivity {
 
         prefs.edit().putInt("userid",10).commit();
 
-        startActivity(intent); */
+        startActivity(intent);
 
 
-        new AsyncMenuPrincipal().execute();
+        //new AsyncMenuPrincipal().execute();
       /*  prefs = PreferenceManager.getDefaultSharedPreferences(MyAccountActivity.this);
         prefs.edit().clear().commit(); */
 

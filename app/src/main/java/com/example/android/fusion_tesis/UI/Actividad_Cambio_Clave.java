@@ -122,7 +122,6 @@ public class Actividad_Cambio_Clave extends AppCompatActivity{
             pDialog.dismiss();
             try {
                 if (json.getInt(TAG_SUCCESS)== 1){
-                    salt = json.getString("salt");
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Cambio_Clave.this);
                     prefs.edit().putString("salt",salt).commit();
 
