@@ -1,8 +1,12 @@
 package com.example.android.fusion_tesis.UI;
 
 import android.app.PendingIntent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -20,15 +24,15 @@ public class Actividad_lista_completa extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_lista_completa);
+        
+
 
         sitios.add("ivan");
         sitios.add("ivan");
         sitios.add("ivan");
         sitios.add("ivan");
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sitios);
-
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sitios);
         ListView listView = (ListView) findViewById(R.id.reciclador_lista_completa);
         listView.setAdapter(itemsAdapter);
 

@@ -50,6 +50,9 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
         id_sitio = intent.getIntExtra("id_sitio", 0);
         id_user = intent.getIntExtra("id_user", 0);
         ratingBar = (RatingBar) findViewById(R.id.rating);
+        setTheme(R.style.AppTheme);
+
+
 
         GetFromUrl tsk = new GetFromUrl();
         tsk.execute();
@@ -64,6 +67,8 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
 
             }
         });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
