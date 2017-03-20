@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.fusion_tesis">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value=".Actividad_Principal" />
         <activity
             android:name=".UI.Actividad_Login"
             android:label="@string/app_name"
@@ -18,18 +23,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".UI.Actividad_Principal"></activity>
-        <activity android:name=".UI.Actividad_Registro"></activity>
-        <activity android:name=".UI.Actividad_Cambio_Clave"></activity>
-        <activity android:name=".UI.Actividad_Detalle_Sitio"
+        <activity android:name=".UI.Actividad_Principal">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".UI.Actividad_Registro" />
+        <activity android:name=".UI.Actividad_Cambio_Clave" />
+        <activity
+            android:name=".UI.Actividad_Detalle_Sitio"
             android:parentActivityName=".UI.Actividad_Principal">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UI.Actividad_Principal"/>
+                android:value=".UI.Actividad_Principal" />
         </activity>
+        <activity android:name=".UI.Actividad_lista_completa"></activity>
     </application>
 
 </manifest>

@@ -15,7 +15,8 @@
             android:layout_height="38dp"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:text="Button"/>
+            android:text="Lista Completa"
+            android:onClick="listCompleteActivity"/>
 
         <Button
             style="@style/button_Style"
