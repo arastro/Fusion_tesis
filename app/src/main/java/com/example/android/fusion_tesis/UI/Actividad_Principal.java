@@ -50,6 +50,7 @@ public class Actividad_Principal extends AppCompatActivity
 
     SearchView searchView = null;
     private String[] strArrData = {"No Suggestions"};
+    private ArrayList<Integer> posicionSitiosBusqueda;
     /*---------------------------------------------------------------------------------------------------------------------*/
 
     @Override
@@ -57,7 +58,7 @@ public class Actividad_Principal extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_principal);
         /*NUEVO------------------------------------------------------------------------------------*/
-        final String[] from = new String[] {"fishName"};
+        final String[] from = new String[] {"Name"};
         final int[] to = new int[] {android.R.id.text1};
 
         // setup SimpleCursorAdapter
@@ -136,7 +137,10 @@ public class Actividad_Principal extends AppCompatActivity
                     CursorAdapter ca = searchView.getSuggestionsAdapter();
                     Cursor cursor = ca.getCursor();
                     cursor.moveToPosition(position);
-                    searchView.setQuery(cursor.getString(cursor.getColumnIndex("fishName")),false);
+                    searchView.setQuery(cursor.getString(cursor.getColumnIndex("Name")),false);
+                    Intent intent = new Intent(getApplicationContext(), Actividad_Detalle_Sitio.class);
+                    intent.putExtra("id_sitio",posicionSitiosBusqueda.get(position));
+                    startActivity(intent);
                     return true;
                 }
 
@@ -267,36 +271,39 @@ public class Actividad_Principal extends AppCompatActivity
         @Override
         protected String doInBackground(String... nameSite) {
 
-            HashMap<String, String> params = new HashMap<>();
-            params.put("name", nameSite[0]);
+            if(!nameSite.toString().isEmpty()) {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("name", nameSite[0]);
 
-            Log.i("Tag", "llego Aqui");
+                Log.i("Tag", "llego Aqui");
 
-            ArrayList<String> listaSitios = new ArrayList<>();
+                ArrayList<String> listaSitios = new ArrayList<>();
 
-            json = jsonParser.makeHttpRequest(URL, "POST", params);
+                json = jsonParser.makeHttpRequest(URL, "POST", params);
 
-            try {
+                try {
 
-                JSONArray values = json.getJSONArray("sitios");
+                    JSONArray values = json.getJSONArray("sitios");
+                    posicionSitiosBusqueda = new ArrayList<>();
+
+                    int i = 0;
+                    while (i < values.length()) {
+                        JSONObject sitioJson = values.getJSONObject(i);
+                        int id = sitioJson.getInt("id");
+                        String name = sitioJson.getString("nombre");
+                        listaSitios.add(name);
+                        posicionSitiosBusqueda.add(id);
+
+                        i++;
+                    }
+
+                    strArrData = listaSitios.toArray(new String[listaSitios.size()]);
 
 
-                int i = 0;
-                while (i < values.length()) {
-                    JSONObject sitioJson = values.getJSONObject(i);
-                    int id = sitioJson.getInt("id");
-                    String name = sitioJson.getString("nombre");
-                    listaSitios.add(name);
+                } catch (JSONException e) {
+                    strArrData = listaSitios.toArray(new String[listaSitios.size()]);
 
-                    i++;
                 }
-
-                strArrData = listaSitios.toArray(new String[listaSitios.size()]);
-
-
-            } catch (JSONException e) {
-                strArrData = listaSitios.toArray(new String[listaSitios.size()]);
-
             }
 
             return nameSite[0];
@@ -335,7 +342,7 @@ public class Actividad_Principal extends AppCompatActivity
 
 
             // Filter data
-            final MatrixCursor mc = new MatrixCursor(new String[]{BaseColumns._ID, "fishName"});
+            final MatrixCursor mc = new MatrixCursor(new String[]{BaseColumns._ID, "Name"});
             for (int i = 0; i < strArrData.length; i++) {
                 if (strArrData[i].toLowerCase().startsWith(result.toLowerCase()))
                     mc.addRow(new Object[]{i, strArrData[i]});

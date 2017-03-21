@@ -2,9 +2,11 @@ package com.example.android.fusion_tesis.UI;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
@@ -46,9 +48,12 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_detalle_sitio);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Detalle_Sitio.this);
+        id_user = prefs.getInt("userid", 0);
+
         Intent intent = getIntent();
+
         id_sitio = intent.getIntExtra("id_sitio", 0);
-        id_user = intent.getIntExtra("id_user", 0);
         ratingBar = (RatingBar) findViewById(R.id.rating);
         setTheme(R.style.AppTheme);
 
