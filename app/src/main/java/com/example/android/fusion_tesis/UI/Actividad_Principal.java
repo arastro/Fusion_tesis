@@ -96,8 +96,27 @@ public class Actividad_Principal extends AppCompatActivity
 
     public void listCompleteActivity(View view) {
 
-        // we change to RegisterActivity
+        /* Lleva a Actividad_lista_completa
+        *
+        * el numero indica que lista va a seleccionar (0 todos los sitios recomendados)
+        *
+        * */
+
         Intent intent =new Intent(this, Actividad_lista_completa.class);
+        intent.putExtra("numero",0);
+        startActivity(intent);
+
+    }
+
+    public void listPunctuatedSites(View view) {
+        /* Lleva a Actividad_lista_completa
+        *
+        * el numero indica que lista va a seleccionar (1 sitios puntuados)
+        *
+        * */
+
+        Intent intent =new Intent(this, Actividad_lista_completa.class);
+        intent.putExtra("numero",1);
         startActivity(intent);
 
     }
@@ -247,6 +266,8 @@ public class Actividad_Principal extends AppCompatActivity
 
         }
     }
+
+
 
     // Create class AsyncFetch
     private class AsyncFetch extends AsyncTask<String, String, String> {

@@ -34,7 +34,7 @@ public class Fragmento_principal extends Fragment {
     public static final String URL="http://ceramicapiga.com/tesis/get5sites.php";
     private ArrayList<Sitio> sitios = new ArrayList<Sitio>();
     private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
-    int userid;
+    private int userid;
     private View view;
 
 
@@ -134,7 +134,6 @@ public class Fragmento_principal extends Fragment {
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Intent intent =new Intent(getContext(), Actividad_Detalle_Sitio.class);
                     intent.putExtra("id_sitio",idSitios.get(position));
-                    intent.putExtra("id_user", userid);
                     startActivity(intent);
                 }
             });
