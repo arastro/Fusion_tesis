@@ -1,25 +1,19 @@
 package com.example.android.fusion_tesis.UI;
 
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.android.fusion_tesis.Modelo.DescargasYCargas;
 import com.example.android.fusion_tesis.Modelo.JSONParser;
 import com.example.android.fusion_tesis.Modelo.Sitio;
 import com.example.android.fusion_tesis.R;
@@ -33,10 +27,10 @@ import java.util.HashMap;
 
 public class Actividad_lista_completa extends AppCompatActivity {
 
-    public static final String URL="http://ceramicapiga.com/tesis/get15sites.php";
-    private ArrayList<String> sitios = new ArrayList<String>();
+    public static final String URL="http://ceramicapiga.com/tesis/get15sites.php"; // url de los 15 sitios a recomendar
+    public static final String URL2="http://ceramicapiga.com/tesis/getRecomSites.php"; // url de los sitios punteados
     private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
-    private int userid;
+    private int userid; // id de usuario
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +43,25 @@ public class Actividad_lista_completa extends AppCompatActivity {
         Intent intent = getIntent();
         int numero = intent.getIntExtra("numero",0);
 
+        // si es  0 se cargan los 15 sitios a recomendar
+        // diferente a 0, sitios punteados
         if(numero ==0) {
-            GetFromUrl tsk = new GetFromUrl();
+            GetRecomSites tsk = new GetRecomSites();
             tsk.execute();
         }else{
 
-
+            GetDottesSites tsk = new GetDottesSites();
+            tsk.execute();
         }
 
     }
 
-    private class GetFromUrl extends AsyncTask<Void, Void ,Void> {
+    private class GetRecomSites extends AsyncTask<Void, Void ,Void> {
 
         private ProgressDialog pDialog;
-
-        JSONObject json = new JSONObject();
-        JSONParser jsonParser = new JSONParser();
+        private ArrayList<String> sitios = new ArrayList<>();
+        private JSONObject json = new JSONObject();
+        private JSONParser jsonParser = new JSONParser();
 
         @Override
         protected void onPreExecute() {
@@ -80,7 +77,6 @@ public class Actividad_lista_completa extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Bitmap imagen=null;
             HashMap<String, String> params = new HashMap<>();
             params.put("userid", Integer.toString(userid));
 
@@ -94,8 +90,8 @@ public class Actividad_lista_completa extends AppCompatActivity {
                     JSONObject sitioJson = values.getJSONObject(i);
                     int id = sitioJson.getInt("id");
                     String name = sitioJson.getString("nombre");
-                    sitios.add(name);
-                    idSitios.add(id);
+                    sitios.add(name); // almacena los sitios
+                    idSitios.add(id); // almacena la id, en la posicion de los sitios
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -126,4 +122,71 @@ public class Actividad_lista_completa extends AppCompatActivity {
 
 
     }
+
+    private class GetDottesSites extends AsyncTask<Void, Void, Void>{
+        private ProgressDialog pDialog;
+        private ArrayList<Sitio> sitios = new ArrayList<>();
+        private JSONObject json = new JSONObject();
+        private JSONParser jsonParser = new JSONParser();
+        private ArrayList<Integer>score = new ArrayList<>();
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+
+            pDialog = new ProgressDialog(Actividad_lista_completa.this);
+            pDialog.setMessage("Cargando Imagen");
+            pDialog.setCancelable(true);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.show();
+        }
+
+        protected Void doInBackground(Void... voids) {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("userid", Integer.toString(userid));
+
+            Log.i("Tag", "llego Aqui");
+
+            json = jsonParser.makeHttpRequest(URL2, "POST", params);
+            try {
+                JSONArray values = json.getJSONArray("sitios");
+
+                for (int i=0; i<values.length(); i++){
+                    JSONObject sitioJson = values.getJSONObject(i);
+                    int id = sitioJson.getInt("id");
+                    String name = sitioJson.getString("nombre");
+                    int sc = sitioJson.getInt("rating");
+                    Sitio sitio = new Sitio(id, name, null, null, null);
+                    sitios.add(sitio);
+                    score.add(sc);
+                    idSitios.add(id);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        protected void onPostExecute(Void voids) {
+            super.onPostExecute(voids);
+
+
+            Adaptador_Sitios_Dot itemsAdapter = new Adaptador_Sitios_Dot(getApplicationContext(), sitios, score);
+
+            ListView lista = (ListView) findViewById(R.id.reciclador_lista_completa);
+
+            lista.setAdapter(itemsAdapter);
+            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Intent intent =new Intent(getApplicationContext(), Actividad_Detalle_Sitio.class);
+                    intent.putExtra("id_sitio",idSitios.get(position));
+                    startActivity(intent);
+                }
+            });
+            pDialog.dismiss();
+
+        }
+    }
+
 }
