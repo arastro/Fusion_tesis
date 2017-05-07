@@ -109,16 +109,8 @@ public class Actividad_Principal extends AppCompatActivity
     }
 
     public void listPunctuatedSites(View view) {
-        /* Lleva a Actividad_lista_completa
-        *
-        * el numero indica que lista va a seleccionar (1 sitios puntuados)
-        *
-        * */
-
-        Intent intent =new Intent(this, Actividad_lista_completa.class);
-        intent.putExtra("numero",1);
+        Intent intent =new Intent(this, Actividad_Categorias.class);
         startActivity(intent);
-
     }
 
     @Override
@@ -207,31 +199,16 @@ public class Actividad_Principal extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            Fragmento_principal fragnent = new Fragmento_principal();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment,fragnent);
-            fragmentTransaction.commit();
+        if (id == R.id.nav_puntuados) {
+            /* Lleva a Actividad_lista_completa
+            *
+            * el numero indica que lista va a seleccionar (1 sitios puntuados)
+            *
+            * */
 
-        } else if (id == R.id.nav_gallery) {
-
-            Fragmento_Segundo fragnent = new Fragmento_Segundo();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment,fragnent);
-            fragmentTransaction.commit();
-
-        } else if (id == R.id.nav_slideshow) {
-            Fragmento_tercero fragnent = new Fragmento_tercero();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment,fragnent);
-            fragmentTransaction.commit();
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+            Intent intent =new Intent(this, Actividad_lista_completa.class);
+            intent.putExtra("numero",1);
+            startActivity(intent);
 
         } else if (id == R.id.nav_password) {
 
@@ -333,33 +310,6 @@ public class Actividad_Principal extends AppCompatActivity
         @Override
         protected void onPostExecute(String result) {
 
-            //this method will be running on UI thread
-            // pDialog.dismiss();
-        /*    if(result.equals("no rows")) {
-
-                // Do some action if no data from database
-
-            }else{
-
-                try {
-
-                    JSONArray jArray = new JSONArray(result);
-
-                    // Extract data from json and store into ArrayList
-                    for (int i = 0; i < jArray.length(); i++) {
-                        JSONObject json_data = jArray.getJSONObject(i);
-                        dataList.add(json_data.getString("fish_name"));
-                    }
-
-                    strArrData = dataList.toArray(new String[dataList.size()]);
-
-                } catch (JSONException e) {
-                    // You to understand what actually error is and handle it appropriately
-                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                    Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_LONG).show();
-                }
-
-            } */
 
 
             // Filter data

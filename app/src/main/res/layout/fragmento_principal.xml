@@ -15,7 +15,7 @@
             android:layout_height="38dp"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:text="Lista Completa"
+            android:text="@string/ver_mas_sitios"
             android:onClick="listCompleteActivity"/>
 
         <Button
@@ -24,7 +24,7 @@
             android:layout_height="38dp"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:text="Button"
+            android:text="@string/buscar_sitios_por_clasificacion"
             android:onClick="listPunctuatedSites"
             />
 

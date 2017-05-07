@@ -40,12 +40,25 @@
             android:parentActivityName=".UI.Actividad_Principal"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar">
 
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".UI.Actividad_Principal" />
         </activity>
         <activity android:name=".UI.Actividad_lista_completa"></activity>
+        <activity android:name=".UI.Actividad_Categorias"
+            android:parentActivityName=".UI.Actividad_Principal"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter> -->
+        </activity>
+
+        <activity android:name=".UI.Actividad_Categoria_Seleccionada"
+            android:parentActivityName=".UI.Actividad_Categorias"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
     </application>
 
 </manifest>

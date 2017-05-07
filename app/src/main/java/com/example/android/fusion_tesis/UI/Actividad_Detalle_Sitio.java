@@ -52,7 +52,6 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
         id_user = prefs.getInt("userid", 0);
 
         Intent intent = getIntent();
-
         id_sitio = intent.getIntExtra("id_sitio", 0);
         ratingBar = (RatingBar) findViewById(R.id.rating);
         setTheme(R.style.AppTheme);

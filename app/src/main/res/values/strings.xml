@@ -21,4 +21,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ver_mas_sitios">Ver mas sitios</string>
+    <string name="buscar_sitios_por_clasificacion">Buscar sitios por clasificacion</string>
+    <string name="sitios_puntuados">Sitios Puntuados</string>
 </resources>
