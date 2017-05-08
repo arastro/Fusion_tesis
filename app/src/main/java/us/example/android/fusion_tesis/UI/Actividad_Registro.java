@@ -6,6 +6,7 @@ package us.example.android.fusion_tesis.UI;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -131,6 +132,9 @@ public class Actividad_Registro extends Activity {
                 try {
                     if (json.getInt("success") != 0) {
                         Toast.makeText(getApplication(), json.getString("message"), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), Actividad_Login.class);
+                        startActivity(intent);
+
                     } else {
                         Toast.makeText(getApplication(), json.getString("message"), Toast.LENGTH_LONG).show();
 

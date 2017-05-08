@@ -7,6 +7,6 @@ package us.example.android.fusion_tesis.Modelo;
 public class Calculador {
     public static double Redondear(double numero)
     {
-        return Math.rint(numero*100)/100;
+        return Math.rint(numero*100)/100 ;
     }
 }

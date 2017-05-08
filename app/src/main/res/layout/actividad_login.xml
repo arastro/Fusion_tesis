@@ -36,11 +36,8 @@
                 <TextView
                     style="@style/appNameStyle"
                     android:fontFamily="sans-serif-medium"
-                    android:text="RECOM"/>
+                    android:text="@string/app_name"/>
 
-                <TextView
-                    style="@style/appNameStyle"
-                    android:text="app" />
 
             </LinearLayout>
 
