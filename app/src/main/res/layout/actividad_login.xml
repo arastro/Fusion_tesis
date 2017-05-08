@@ -5,13 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.android.fusion_tesis.EJ.example.android.fusion_tesis.UI.Actividad_Login">
+    android:background="@android:color/holo_blue_dark"
+    tools:context="us.example.android.fusion_tesis.UI.Actividad_Login">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/cartagena_colombia_10_2"
-        android:scaleType="centerCrop"/>
+
 
     <ScrollView
         android:layout_width="fill_parent"
