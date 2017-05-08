@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.android.fusion_tesis.UI.Actividad_lista_completa">
+    tools:context="com.example.android.fusion_tesis.EJ.example.android.fusion_tesis.UI.Actividad_lista_completa">
 
     <include
         layout="@layout/barra_principal"
