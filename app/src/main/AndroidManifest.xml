@@ -44,7 +44,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="us.example.android.fusion_tesis.UI.Actividad_Principal" />
         </activity>
-        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_lista_completa"></activity>
+        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_lista_completa"
+            android:parentActivityName="us.example.android.fusion_tesis.UI.Actividad_Principal"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
         <activity android:name="us.example.android.fusion_tesis.UI.Actividad_Categorias"
             android:parentActivityName="us.example.android.fusion_tesis.UI.Actividad_Principal"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar">
