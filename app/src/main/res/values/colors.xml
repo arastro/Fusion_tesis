@@ -2,6 +2,6 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorAccent">#000000</color>
-    <color name="loginColor">#414141</color>
+    <color name="loginColor">#21EEF5</color>
     <color name="statusBarColor">#2F0D70</color>
 </resources>
