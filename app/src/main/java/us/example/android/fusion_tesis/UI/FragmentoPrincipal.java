@@ -1,14 +1,18 @@
 package us.example.android.fusion_tesis.UI;
 
+
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -26,46 +30,64 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Edgar on 6/05/2017.
- */
 
-public class Actividad_Categoria_Seleccionada extends AppCompatActivity{
+public class FragmentoPrincipal extends Fragment {
 
-    public static final String URL="http://ceramicapiga.com/tesis/get_by_tag.php";
+    public static final String URL="http://ceramicapiga.com/tesis/get5sites.php";
     private ArrayList<Sitio> sitios = new ArrayList<Sitio>();
     private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
-    ListView lista;
+    private int userid;
+    private View view;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.actividad_categorias);
 
-        Intent intent = getIntent();
-        String tag = intent.getStringExtra("tag");
-        lista =(ListView)findViewById(R.id.listViewCategorias);
-
-        GetFromUrl tsk = new GetFromUrl();
-        tsk.execute(tag);
+    public FragmentoPrincipal() {
+        // Required empty public constructor
     }
 
 
 
-    private class GetFromUrl extends AsyncTask<String , Void, Void> {
+    @Override
+    public View onCreateView (LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState)  {
+        // Inflate the layout for this fragment
+        view =inflater.inflate(R.layout.fragmento_principal, container, false);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext()); // Contiene al usuario
+
+        userid= prefs.getInt("userid", 0);  // contiene el id del usuario
+       // userid = args.getInt("userid", 0) ;
+
+        GetFromUrl tsk = new GetFromUrl();
+        tsk.execute();
+
+
+       /* AdaptadorSitios adapter = new AdaptadorSitios(getActivity(), sitios);
+        ListView lista = (ListView)view.findViewById(R.userid.reciclador);
+        lista.setAdapter(adapter); */
+
+       /* lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent =new Intent(getContext(), ActividadDetalleSitio.class);
+                startActivity(intent);
+            }
+        }); */
+
+        return view;
+    }
+
+    private class GetFromUrl extends AsyncTask<Void, Void ,Void> {
 
         private ProgressDialog pDialog;
 
         JSONObject json = new JSONObject();
         JSONParser jsonParser = new JSONParser();
 
-
         @Override
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
 
-            pDialog = new ProgressDialog(Actividad_Categoria_Seleccionada.this);
+            pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Cargando Imagen");
             pDialog.setCancelable(true);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -73,11 +95,11 @@ public class Actividad_Categoria_Seleccionada extends AppCompatActivity{
         }
 
         @Override
-        protected Void doInBackground(String... tag) {
-
+        protected Void doInBackground(Void... voids) {
             Bitmap imagen=null;
             HashMap<String, String> params = new HashMap<>();
-            params.put("texto", tag[0]);
+            params.put("user", Integer.toString(userid));
+
             Log.i("Tag", "llego Aqui");
 
             json = jsonParser.makeHttpRequest(URL, "POST", params);
@@ -91,7 +113,7 @@ public class Actividad_Categoria_Seleccionada extends AppCompatActivity{
                     double avg = sitioJson.getDouble("avg");
                     avg = Calculador.Redondear(avg);
                     imagen = DescargasYCargas.descargarImagen(sitioJson.getString("url"));
-                    sitios.add(new Sitio(id, name,"","", imagen, avg));
+                    sitios.add(new Sitio(id, name,"","", imagen,avg));
                     idSitios.add(id);
                 }
             } catch (JSONException e) {
@@ -105,13 +127,15 @@ public class Actividad_Categoria_Seleccionada extends AppCompatActivity{
             super.onPostExecute(voids);
 
 
-            Adaptador_Sitios adapter = new Adaptador_Sitios(getApplicationContext(), sitios);
+            AdaptadorSitios adapter = new AdaptadorSitios(getActivity(), sitios);
+
+            ListView lista = (ListView)view.findViewById(R.id.reciclador);
 
             lista.setAdapter(adapter);
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    Intent intent =new Intent(getApplicationContext(), Actividad_Detalle_Sitio.class);
+                    Intent intent =new Intent(getContext(), ActividadDetalleSitio.class);
                     intent.putExtra("id_sitio",idSitios.get(position));
                     startActivity(intent);
                 }
@@ -122,5 +146,6 @@ public class Actividad_Categoria_Seleccionada extends AppCompatActivity{
 
 
     }
+
 
 }

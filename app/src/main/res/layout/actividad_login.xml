@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/loginColor"
-    tools:context="us.example.android.fusion_tesis.UI.Actividad_Login">
+    tools:context="us.example.android.fusion_tesis.UI.ActividadLogin">
 
 
 

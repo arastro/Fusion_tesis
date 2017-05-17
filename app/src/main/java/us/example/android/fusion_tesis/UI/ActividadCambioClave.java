@@ -24,7 +24,7 @@ import java.util.HashMap;
  * Created by Edgar on 15/03/2017.
  */
 
-public class Actividad_Cambio_Clave extends AppCompatActivity{
+public class ActividadCambioClave extends AppCompatActivity{
 
 
     //String de url de la pagina
@@ -48,7 +48,7 @@ public class Actividad_Cambio_Clave extends AppCompatActivity{
         oldPasswordEditText = (EditText)findViewById(R.id.oldPasswordEditText);
         newPasswordEditText = (EditText)findViewById(R.id.passwordEditText);
         newPassword2EditText = (EditText)findViewById(R.id.passwordEditText2);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Cambio_Clave.this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActividadCambioClave.this);
         userid= prefs.getInt("userid", 0);
         salt = prefs.getString("salt", "0");
 
@@ -89,7 +89,7 @@ public class Actividad_Cambio_Clave extends AppCompatActivity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Actividad_Cambio_Clave.this);
+            pDialog = new ProgressDialog(ActividadCambioClave.this);
             pDialog.setMessage("Cargando...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -122,7 +122,7 @@ public class Actividad_Cambio_Clave extends AppCompatActivity{
             pDialog.dismiss();
             try {
                 if (json.getInt(TAG_SUCCESS)== 1){
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Cambio_Clave.this);
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActividadCambioClave.this);
                     prefs.edit().putString("salt",salt).commit();
 
                     Toast.makeText(getApplication(), "Contraseña Cambiada Correctamente", Toast.LENGTH_LONG).show();

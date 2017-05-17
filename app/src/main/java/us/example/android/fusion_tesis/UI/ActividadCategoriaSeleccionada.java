@@ -1,18 +1,14 @@
 package us.example.android.fusion_tesis.UI;
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -30,64 +26,46 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Created by Edgar on 6/05/2017.
+ */
 
-public class Fragmento_principal extends Fragment {
+public class ActividadCategoriaSeleccionada extends AppCompatActivity{
 
-    public static final String URL="http://ceramicapiga.com/tesis/get5sites.php";
+    public static final String URL="http://ceramicapiga.com/tesis/get_by_tag.php";
     private ArrayList<Sitio> sitios = new ArrayList<Sitio>();
     private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
-    private int userid;
-    private View view;
-
-
-    public Fragmento_principal() {
-        // Required empty public constructor
-    }
-
-
+    ListView lista;
 
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)  {
-        // Inflate the layout for this fragment
-        view =inflater.inflate(R.layout.fragmento_principal, container, false);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext()); // Contiene al usuario
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.actividad_categorias);
 
-        userid= prefs.getInt("userid", 0);  // contiene el id del usuario
-       // userid = args.getInt("userid", 0) ;
+        Intent intent = getIntent();
+        String tag = intent.getStringExtra("tag");
+        lista =(ListView)findViewById(R.id.listViewCategorias);
 
         GetFromUrl tsk = new GetFromUrl();
-        tsk.execute();
-
-
-       /* Adaptador_Sitios adapter = new Adaptador_Sitios(getActivity(), sitios);
-        ListView lista = (ListView)view.findViewById(R.userid.reciclador);
-        lista.setAdapter(adapter); */
-
-       /* lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent intent =new Intent(getContext(), Actividad_Detalle_Sitio.class);
-                startActivity(intent);
-            }
-        }); */
-
-        return view;
+        tsk.execute(tag);
     }
 
-    private class GetFromUrl extends AsyncTask<Void, Void ,Void> {
+
+
+    private class GetFromUrl extends AsyncTask<String , Void, Void> {
 
         private ProgressDialog pDialog;
 
         JSONObject json = new JSONObject();
         JSONParser jsonParser = new JSONParser();
 
+
         @Override
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
 
-            pDialog = new ProgressDialog(getContext());
+            pDialog = new ProgressDialog(ActividadCategoriaSeleccionada.this);
             pDialog.setMessage("Cargando Imagen");
             pDialog.setCancelable(true);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -95,11 +73,11 @@ public class Fragmento_principal extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(String... tag) {
+
             Bitmap imagen=null;
             HashMap<String, String> params = new HashMap<>();
-            params.put("user", Integer.toString(userid));
-
+            params.put("texto", tag[0]);
             Log.i("Tag", "llego Aqui");
 
             json = jsonParser.makeHttpRequest(URL, "POST", params);
@@ -113,7 +91,7 @@ public class Fragmento_principal extends Fragment {
                     double avg = sitioJson.getDouble("avg");
                     avg = Calculador.Redondear(avg);
                     imagen = DescargasYCargas.descargarImagen(sitioJson.getString("url"));
-                    sitios.add(new Sitio(id, name,"","", imagen,avg));
+                    sitios.add(new Sitio(id, name,"","", imagen, avg));
                     idSitios.add(id);
                 }
             } catch (JSONException e) {
@@ -127,15 +105,13 @@ public class Fragmento_principal extends Fragment {
             super.onPostExecute(voids);
 
 
-            Adaptador_Sitios adapter = new Adaptador_Sitios(getActivity(), sitios);
-
-            ListView lista = (ListView)view.findViewById(R.id.reciclador);
+            AdaptadorSitios adapter = new AdaptadorSitios(getApplicationContext(), sitios);
 
             lista.setAdapter(adapter);
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    Intent intent =new Intent(getContext(), Actividad_Detalle_Sitio.class);
+                    Intent intent =new Intent(getApplicationContext(), ActividadDetalleSitio.class);
                     intent.putExtra("id_sitio",idSitios.get(position));
                     startActivity(intent);
                 }
@@ -146,6 +122,5 @@ public class Fragmento_principal extends Fragment {
 
 
     }
-
 
 }

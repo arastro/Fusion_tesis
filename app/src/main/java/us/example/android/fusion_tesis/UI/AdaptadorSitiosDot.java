@@ -18,10 +18,10 @@ import java.util.ArrayList;
  * Created by Edgar on 11/04/2017.
  */
 
-public class Adaptador_Sitios_Dot extends ArrayAdapter<Sitio> {
+public class AdaptadorSitiosDot extends ArrayAdapter<Sitio> {
 
     private ArrayList<Integer> sc; // guardara la puntuacion del sitio
-    public Adaptador_Sitios_Dot(Context context, ArrayList<Sitio> sitios, ArrayList<Integer> score) {
+    public AdaptadorSitiosDot(Context context, ArrayList<Sitio> sitios, ArrayList<Integer> score) {
         super(context, 0, sitios);
         sc = score;
     }

@@ -28,7 +28,7 @@ import java.util.HashMap;
  * Created by IVANF on 29/01/2017.
  */
 
-public class Actividad_Detalle_Sitio extends AppCompatActivity {
+public class ActividadDetalleSitio extends AppCompatActivity {
     private Sitio sitio;
     private TextView nombreEditText;
     private TextView departamentoEditText;
@@ -47,7 +47,7 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_detalle_sitio);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Detalle_Sitio.this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActividadDetalleSitio.this);
         id_user = prefs.getInt("userid", 0);
 
         Intent intent = getIntent();
@@ -134,7 +134,7 @@ public class Actividad_Detalle_Sitio extends AppCompatActivity {
             // TODO Auto-generated method stub
             super.onPreExecute();
 
-            pDialog = new ProgressDialog(Actividad_Detalle_Sitio.this);
+            pDialog = new ProgressDialog(ActividadDetalleSitio.this);
             pDialog.setMessage("Cargando...Espere");
             pDialog.setCancelable(true);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

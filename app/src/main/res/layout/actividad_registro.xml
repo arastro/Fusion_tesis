@@ -9,7 +9,7 @@
         android:background="@color/loginColor"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="us.example.android.fusion_tesis.UI.Actividad_Registro">
+        tools:context="us.example.android.fusion_tesis.UI.ActividadRegistro">
 
 
 

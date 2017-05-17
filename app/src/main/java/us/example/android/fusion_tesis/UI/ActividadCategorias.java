@@ -17,7 +17,7 @@ import com.example.android.fusion_tesis.R;
  * Created by Edgar on 6/05/2017.
  */
 
-public class Actividad_Categorias extends AppCompatActivity {
+public class ActividadCategorias extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,7 +94,7 @@ public class Actividad_Categorias extends AppCompatActivity {
                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                   Intent intent =new Intent(getApplicationContext(), Actividad_Categoria_Seleccionada.class);
+                   Intent intent =new Intent(getApplicationContext(), ActividadCategoriaSeleccionada.class);
                    intent.putExtra("tag",String.valueOf(parent.getItemAtPosition((position))));
                    startActivity(intent);
                }

@@ -14,7 +14,7 @@
             android:name="android.app.default_searchable"
             android:value=".Actividad_Principal" />
         <activity
-            android:name="us.example.android.fusion_tesis.UI.Actividad_Login"
+            android:name="us.example.android.fusion_tesis.UI.ActividadLogin"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_Principal">
+        <activity android:name="us.example.android.fusion_tesis.UI.ActividadPrincipal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH" />
@@ -32,23 +32,23 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_Registro" />
-        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_Cambio_Clave" />
-        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_Detalle_Sitio"
-            android:parentActivityName="us.example.android.fusion_tesis.UI.Actividad_Principal"
+        <activity android:name="us.example.android.fusion_tesis.UI.ActividadRegistro" />
+        <activity android:name="us.example.android.fusion_tesis.UI.ActividadCambioClave" />
+        <activity android:name="us.example.android.fusion_tesis.UI.ActividadDetalleSitio"
+            android:parentActivityName="us.example.android.fusion_tesis.UI.ActividadPrincipal"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar">
 
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="us.example.android.fusion_tesis.UI.Actividad_Principal" />
+                android:value="us.example.android.fusion_tesis.UI.ActividadPrincipal" />
         </activity>
-        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_lista_completa"
-            android:parentActivityName="us.example.android.fusion_tesis.UI.Actividad_Principal"
+        <activity android:name="us.example.android.fusion_tesis.UI.ActividadListaCompleta"
+            android:parentActivityName="us.example.android.fusion_tesis.UI.ActividadPrincipal"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
-        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_Categorias"
-            android:parentActivityName="us.example.android.fusion_tesis.UI.Actividad_Principal"
+        <activity android:name="us.example.android.fusion_tesis.UI.ActividadCategorias"
+            android:parentActivityName="us.example.android.fusion_tesis.UI.ActividadPrincipal"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar">
            <!-- <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -56,8 +56,8 @@
             </intent-filter> -->
         </activity>
 
-        <activity android:name="us.example.android.fusion_tesis.UI.Actividad_Categoria_Seleccionada"
-            android:parentActivityName="us.example.android.fusion_tesis.UI.Actividad_Categorias"
+        <activity android:name="us.example.android.fusion_tesis.UI.ActividadCategoriaSeleccionada"
+            android:parentActivityName="us.example.android.fusion_tesis.UI.ActividadCategorias"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
     </application>
 

@@ -35,7 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Actividad_Principal extends AppCompatActivity
+public class ActividadPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     int userid;
@@ -60,7 +60,7 @@ public class Actividad_Principal extends AppCompatActivity
         final int[] to = new int[] {android.R.id.text1};
 
         // setup SimpleCursorAdapter
-        myAdapter = new SimpleCursorAdapter(Actividad_Principal.this, android.R.layout.simple_spinner_dropdown_item, null, from, to, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        myAdapter = new SimpleCursorAdapter(ActividadPrincipal.this, android.R.layout.simple_spinner_dropdown_item, null, from, to, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         // Fetch data from mysql table using AsyncTask
         // new AsyncFetch().execute();
@@ -79,7 +79,7 @@ public class Actividad_Principal extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Fragmento_principal fragnent = new Fragmento_principal();
+        FragmentoPrincipal fragnent = new FragmentoPrincipal();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment,fragnent);
@@ -94,20 +94,20 @@ public class Actividad_Principal extends AppCompatActivity
 
     public void listCompleteActivity(View view) {
 
-        /* Lleva a Actividad_lista_completa
+        /* Lleva a ActividadListaCompleta
         *
         * el numero indica que lista va a seleccionar (0 todos los sitios recomendados)
         *
         * */
 
-        Intent intent =new Intent(this, Actividad_lista_completa.class);
+        Intent intent =new Intent(this, ActividadListaCompleta.class);
         intent.putExtra("numero",0);
         startActivity(intent);
 
     }
 
     public void listCategoria(View view) {
-        Intent intent =new Intent(this, Actividad_Categorias.class);
+        Intent intent =new Intent(this, ActividadCategorias.class);
         startActivity(intent);
     }
 
@@ -129,12 +129,12 @@ public class Actividad_Principal extends AppCompatActivity
         /*NUEVO------------------------------------------------------------------------------------*/
         // Get Search item from action bar and Get Search service
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchManager searchManager = (SearchManager) Actividad_Principal.this.getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) ActividadPrincipal.this.getSystemService(Context.SEARCH_SERVICE);
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
         }
         if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(Actividad_Principal.this.getComponentName()));
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(ActividadPrincipal.this.getComponentName()));
             searchView.setIconified(false);
             searchView.setSuggestionsAdapter(myAdapter);
             // Getting selected (clicked) item suggestion
@@ -147,7 +147,7 @@ public class Actividad_Principal extends AppCompatActivity
                     Cursor cursor = ca.getCursor();
                     cursor.moveToPosition(position);
                     searchView.setQuery(cursor.getString(cursor.getColumnIndex("Name")),false);
-                    Intent intent = new Intent(getApplicationContext(), Actividad_Detalle_Sitio.class);
+                    Intent intent = new Intent(getApplicationContext(), ActividadDetalleSitio.class);
                     intent.putExtra("id_sitio",posicionSitiosBusqueda.get(position));
                     startActivity(intent);
                     return true;
@@ -198,25 +198,25 @@ public class Actividad_Principal extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_puntuados) {
-            /* Lleva a Actividad_lista_completa
+            /* Lleva a ActividadListaCompleta
             *
             * el numero indica que lista va a seleccionar (1 sitios puntuados)
             *
             * */
 
-            Intent intent =new Intent(this, Actividad_lista_completa.class);
+            Intent intent =new Intent(this, ActividadListaCompleta.class);
             intent.putExtra("numero",1);
             startActivity(intent);
 
         } else if (id == R.id.nav_password) {
 
-            Intent intent = new Intent(getApplicationContext(),Actividad_Cambio_Clave.class);
+            Intent intent = new Intent(getApplicationContext(),ActividadCambioClave.class);
             startActivity(intent);
 
         }else if( id == R.id.nav_logout){
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Principal.this);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActividadPrincipal.this);
             prefs.edit().clear().commit();
-            Intent intent = new Intent(getApplicationContext(), Actividad_Login.class);
+            Intent intent = new Intent(getApplicationContext(), ActividadLogin.class);
             startActivity(intent);
 
         }
@@ -247,7 +247,7 @@ public class Actividad_Principal extends AppCompatActivity
     // Create class AsyncFetch
     private class AsyncFetch extends AsyncTask<String, String, String> {
 
-        private ProgressDialog pDialog = new ProgressDialog(Actividad_Principal.this);;
+        private ProgressDialog pDialog = new ProgressDialog(ActividadPrincipal.this);;
 
         JSONObject json = new JSONObject();
         JSONParser jsonParser = new JSONParser();

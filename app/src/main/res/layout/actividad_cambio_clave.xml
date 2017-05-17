@@ -10,7 +10,7 @@
         android:background="@android:color/holo_blue_light"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="us.example.android.fusion_tesis.UI.Actividad_Registro">
+        tools:context="us.example.android.fusion_tesis.UI.ActividadRegistro">
 
 
     <ScrollView
@@ -27,7 +27,7 @@
                 android:gravity="center"
                 android:paddingTop="16dp"
                 android:paddingBottom="32dp"
-                android:text="@string/registrar"
+                android:text="@string/cambiar_contrase_a"
                 android:textColor="#FFFFFF"
                 android:textSize="50dp" />
 

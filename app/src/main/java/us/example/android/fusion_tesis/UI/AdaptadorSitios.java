@@ -19,9 +19,9 @@ import java.util.ArrayList;
  * Created by IVANF on 29/01/2017.
  */
 
-public class Adaptador_Sitios extends ArrayAdapter<Sitio> {
+public class AdaptadorSitios extends ArrayAdapter<Sitio> {
 
-    public Adaptador_Sitios(Context context, ArrayList<Sitio> sitios) {
+    public AdaptadorSitios(Context context, ArrayList<Sitio> sitios) {
         super(context, 0, sitios);
     }
 

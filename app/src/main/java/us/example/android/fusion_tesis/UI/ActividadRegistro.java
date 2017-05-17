@@ -26,7 +26,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 
-public class Actividad_Registro extends Activity {
+public class ActividadRegistro extends Activity {
 
     //String de url de la pagina
     private static final String LOGIN_URL = "http://ceramicapiga.com/tesis/registration.php";
@@ -77,7 +77,7 @@ public class Actividad_Registro extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Actividad_Registro.this);
+            pDialog = new ProgressDialog(ActividadRegistro.this);
             pDialog.setMessage("Attempting login...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -132,7 +132,7 @@ public class Actividad_Registro extends Activity {
                 try {
                     if (json.getInt("success") != 0) {
                         Toast.makeText(getApplication(), json.getString("message"), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(), Actividad_Login.class);
+                        Intent intent = new Intent(getApplicationContext(), ActividadLogin.class);
                         startActivity(intent);
 
                     } else {

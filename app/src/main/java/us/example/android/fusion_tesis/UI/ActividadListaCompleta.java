@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Actividad_lista_completa extends AppCompatActivity {
+public class ActividadListaCompleta extends AppCompatActivity {
 
     public static final String URL="http://ceramicapiga.com/tesis/get15sites.php"; // url de los 15 sitios a recomendar
     public static final String URL2="http://ceramicapiga.com/tesis/getRecomSites.php"; // url de los sitios punteados
@@ -37,7 +37,7 @@ public class Actividad_lista_completa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_lista_completa);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_lista_completa.this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActividadListaCompleta.this);
         userid= prefs.getInt("userid", 0);
 
         Intent intent = getIntent();
@@ -68,7 +68,7 @@ public class Actividad_lista_completa extends AppCompatActivity {
             // TODO Auto-generated method stub
             super.onPreExecute();
 
-            pDialog = new ProgressDialog(Actividad_lista_completa.this);
+            pDialog = new ProgressDialog(ActividadListaCompleta.this);
             pDialog.setMessage("Cargando Imagen");
             pDialog.setCancelable(true);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -104,14 +104,14 @@ public class Actividad_lista_completa extends AppCompatActivity {
             super.onPostExecute(voids);
 
 
-            ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(Actividad_lista_completa.this, android.R.layout.simple_list_item_1, sitios);
+            ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(ActividadListaCompleta.this, android.R.layout.simple_list_item_1, sitios);
             ListView lista = (ListView) findViewById(R.id.reciclador_lista_completa);
 
             lista.setAdapter(itemsAdapter);
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    Intent intent =new Intent(getApplicationContext(), Actividad_Detalle_Sitio.class);
+                    Intent intent =new Intent(getApplicationContext(), ActividadDetalleSitio.class);
                     intent.putExtra("id_sitio",idSitios.get(position));
                     startActivity(intent);
                 }
@@ -135,7 +135,7 @@ public class Actividad_lista_completa extends AppCompatActivity {
             // TODO Auto-generated method stub
             super.onPreExecute();
 
-            pDialog = new ProgressDialog(Actividad_lista_completa.this);
+            pDialog = new ProgressDialog(ActividadListaCompleta.this);
             pDialog.setMessage("Cargando Imagen");
             pDialog.setCancelable(true);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -171,7 +171,7 @@ public class Actividad_lista_completa extends AppCompatActivity {
             super.onPostExecute(voids);
 
 
-            Adaptador_Sitios_Dot itemsAdapter = new Adaptador_Sitios_Dot(getApplicationContext(), sitios, score);
+            AdaptadorSitiosDot itemsAdapter = new AdaptadorSitiosDot(getApplicationContext(), sitios, score);
 
             ListView lista = (ListView) findViewById(R.id.reciclador_lista_completa);
 
@@ -179,7 +179,7 @@ public class Actividad_lista_completa extends AppCompatActivity {
             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    Intent intent =new Intent(getApplicationContext(), Actividad_Detalle_Sitio.class);
+                    Intent intent =new Intent(getApplicationContext(), ActividadDetalleSitio.class);
                     intent.putExtra("id_sitio",idSitios.get(position));
                     startActivity(intent);
                 }

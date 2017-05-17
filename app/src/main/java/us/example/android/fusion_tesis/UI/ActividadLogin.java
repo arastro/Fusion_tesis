@@ -26,7 +26,7 @@ import java.util.HashMap;
  * Created by IVANF on 29/01/2017.
  */
 
-public class Actividad_Login extends AppCompatActivity {
+public class ActividadLogin extends AppCompatActivity {
 
 
     //String de url de la pagina
@@ -39,14 +39,14 @@ public class Actividad_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_login);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Login.this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActividadLogin.this);
 
         userid= prefs.getInt("userid", 0);
 
         // se va a comprobar si el usuario ya se ha hecho log anteriormente
         if(userid>0){
 
-            Intent intent = new Intent(getApplicationContext(), Actividad_Principal.class);
+            Intent intent = new Intent(getApplicationContext(), ActividadPrincipal.class);
             intent.putExtra("userid", userid); // manda la userid del usuario al siguiente intent
 
             startActivity(intent);
@@ -58,7 +58,7 @@ public class Actividad_Login extends AppCompatActivity {
     public void onGotoRegisterActivity(View view) {
 
         // we change to RegisterActivity
-        Intent intent =new Intent(this, Actividad_Registro.class);
+        Intent intent =new Intent(this, ActividadRegistro.class);
         startActivity(intent);
 
     }
@@ -67,10 +67,10 @@ public class Actividad_Login extends AppCompatActivity {
     public void goToMenuPrincipal(View view) {
 
         // llama a la actividad principal de la app
-        /* Intent intent =new Intent(this, Actividad_Principal.class);
+        /* Intent intent =new Intent(this, ActividadPrincipal.class);
         intent.putExtra("userid",10);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Login.this); // guarda usuario
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActividadLogin.this); // guarda usuario
 
         prefs.edit().putInt("userid",10).commit();
 
@@ -102,7 +102,7 @@ public class Actividad_Login extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Actividad_Login.this);
+            pDialog = new ProgressDialog(ActividadLogin.this);
             pDialog.setMessage("Attempting login...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -148,10 +148,10 @@ public class Actividad_Login extends AppCompatActivity {
                         Si las contraseñas son iguales abre el la actividad_Principal de la app
                          */
                         Toast.makeText(getApplication(), "Bienvenido", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(), Actividad_Principal.class);
+                        Intent intent = new Intent(getApplicationContext(), ActividadPrincipal.class);
                         intent.putExtra("userid", userid); // manda la userid del usuario al siguiente intent
 
-                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Actividad_Login.this); // guarda usuario
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActividadLogin.this); // guarda usuario
 
                         prefs.edit().putInt("userid",userid).commit(); // alamacena el user id
                         prefs.edit().putString("salt",salt).commit(); // almacena la salt del user;
