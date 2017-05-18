@@ -28,7 +28,7 @@ public class ActividadCambioClave extends AppCompatActivity{
 
 
     //String de url de la pagina
-    private static final String CHANGE_URL="http://ceramicapiga.com/tesis/changePassword.php";
+    private static final String CHANGE_URL=Ruta.CAMBIO_CLAVE_URL;
 
 
     EditText oldPasswordEditText;

@@ -39,8 +39,8 @@ public class ActividadDetalleSitio extends AppCompatActivity {
     private int rate; // va a tener la puntucion realizada por el usuario;
 
 
-    public static final String URL="http://ceramicapiga.com/tesis/get_site_info.php";
-    public static final String URLRECOMENDACION = "http://ceramicapiga.com/tesis/makeRating.php";
+    public static final String URL= Ruta.GET_SITE_INFO_URL;
+    public static final String URLRECOMENDACION = Ruta.MAKE_RATING_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
