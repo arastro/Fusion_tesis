@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class ActividadRegistro extends Activity {
 
     //String de url de la pagina
-    private static final String LOGIN_URL = "http://ceramicapiga.com/tesis/registration.php";
+    private static final String LOGIN_URL = Ruta.REGISTRAR_USER_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

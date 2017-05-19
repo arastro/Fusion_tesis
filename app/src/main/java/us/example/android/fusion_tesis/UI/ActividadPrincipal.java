@@ -44,7 +44,7 @@ public class ActividadPrincipal extends AppCompatActivity
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
     private SimpleCursorAdapter myAdapter;
-    public static final String URL="http://ceramicapiga.com/tesis/searchSite.php";
+    public static final String URL= Ruta.BUSCAR_SITE_URL;
 
     SearchView searchView = null;
     private String[] strArrData = {"No Suggestions"};

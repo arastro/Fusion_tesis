@@ -27,8 +27,8 @@ import java.util.HashMap;
 
 public class ActividadListaCompleta extends AppCompatActivity {
 
-    public static final String URL="http://ceramicapiga.com/tesis/get15sites.php"; // url de los 15 sitios a recomendar
-    public static final String URL2="http://ceramicapiga.com/tesis/getRecomSites.php"; // url de los sitios punteados
+    public static final String URL= Ruta.GET_15_SITES_URL; // url de los 15 sitios a recomendar
+    public static final String URL2= Ruta.GET_RECOM_SITES_URL; // url de los sitios punteados
     private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
     private int userid; // id de usuario
 

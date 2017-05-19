@@ -33,7 +33,7 @@ import java.util.HashMap;
 
 public class FragmentoPrincipal extends Fragment {
 
-    public static final String URL="http://ceramicapiga.com/tesis/get5sites.php";
+    public static final String URL= Ruta.GET_5_SITE_URL;
     private ArrayList<Sitio> sitios = new ArrayList<Sitio>();
     private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
     private int userid;

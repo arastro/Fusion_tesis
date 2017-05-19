@@ -30,7 +30,7 @@ public class ActividadLogin extends AppCompatActivity {
 
 
     //String de url de la pagina
-    private static final String LOGIN_URL="http://ceramicapiga.com/tesis/login.php";
+    private static final String LOGIN_URL= Ruta.LOGIN_URL;
 
     int userid;
 

@@ -32,7 +32,7 @@ import java.util.HashMap;
 
 public class ActividadCategoriaSeleccionada extends AppCompatActivity{
 
-    public static final String URL="http://ceramicapiga.com/tesis/get_by_tag.php";
+    public static final String URL= Ruta.GET_BY_TAG_URL;
     private ArrayList<Sitio> sitios = new ArrayList<Sitio>();
     private ArrayList<Integer> idSitios = new ArrayList<>(); // va a contener la posicion del sitio cuando sea agregado al Arraylist;
     ListView lista;
